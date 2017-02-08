@@ -27,37 +27,40 @@ urlpatterns = [
 
     url(r'^$',
         cache_page(60*5)(flatpage),
-        {'url': '/'},
+        kwargs={'url': '/'},
         name='home'
     ),
 
     url(r'^about/$',
         cache_page(60*5)(flatpage),
-        {'url': '/about/'},
+        kwargs={'url': '/about/'},
         name='about'
     ),
 
     url(r'^about/privacy/$',
         cache_page(60*5)(flatpage),
-        {'url': '/about/privacy/'},
+        kwargs={'url': '/about/privacy/'},
         name='privacy'
     ),
 
     url(r'^about/terms/$',
         cache_page(60*5)(flatpage),
-        {'url': '/about/terms/'},
+        kwargs={'url': '/about/terms/'},
         name='terms'
     ),
 
-    url(r'^(?P<url>shared/.*)$', flatpage),
+    url(r'^(?P<url>shared/.*)$',
+        flatpage,
+        name='shared'
+    ),
 
     url(r'^contact/$',
         ContactView.as_view(
             success_url='/contact/',
             template_name = 'pages/contact.html'
-        ), {'gapi_key' : getattr(
-            settings, 'GOOGLE_API_KEY', None
-        )}, name='contact'
+        ),
+        kwargs={'gapi_key' : getattr(settings, 'GOOGLE_API_KEY', None)},
+        name='contact'
     ),
 
     url(r'^services/$',
@@ -66,26 +69,29 @@ urlpatterns = [
                 template_name='pages/services.html',
                 cache_timeout=settings.DEBUG and 5 or 300
             )
-        ), name='services'
+        ),
+        name='services'
     ),
 
     url(r'^robots\.txt$',
         TemplateView.as_view(
             content_type='text/plain',
             template_name='robots.txt',
-        ), name='robots'
+        ),
+        name='robots'
     ),
 
     url(r'^sitemap\.xml$',
         cache_page(60*60)(sitemap),
-        {'sitemaps': sitemaps}
+        kwargs={'sitemaps': sitemaps}
     ),
 
     url(r'^manifest\.json$', cache_page(60*60)(
         TemplateView.as_view(
             content_type='application/json',
             template_name='manifest.json'
-        )), {'prefix': getattr(settings, 'FAVICON_PREFIX', None)},
+        )),
+        kwargs={'prefix': getattr(settings, 'FAVICON_PREFIX', None)},
         name='chrome_manifest'
     ),
 
