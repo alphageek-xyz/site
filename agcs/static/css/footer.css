@@ -56,4 +56,9 @@ div.social-buttons {
     content: '. ';
     color: #3498db;
   }
+
+  #framework::after {
+    content: '.';
+    color: #3498db;
+  }
 }
