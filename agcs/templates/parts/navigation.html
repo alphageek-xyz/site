@@ -9,7 +9,7 @@
     </button>
     <a class="navbar-brand hidden-xs" href="/">{{ site.schema.name }}</a>
     <a class="navbar-brand visible-xs" href="/">{{ site.schema.alt_name }}</a>
-  </div> <!-- navbar-header -->
+  </div>
   <div id="navbar" class="navbar-collapse collapse">
     <ul class="nav navbar-nav nav-stacked navbar-right">
       <li{% if '/home/' == request.path or '/index/' == request.path or '/' == request.path %} class="active"{% endif %}>
@@ -59,5 +59,5 @@
         <a href="{% url 'forum:index' %}">Forum</a>
       </li>
     </ul>
-  </div> <!-- #navbar -->
-</div> <!-- container -->
+  </div>
+</div>

@@ -2,7 +2,7 @@
 {% with addr=site.schema.address phone=site.schema.telephone %}
 {% with street=addr.street city=addr.locality %}
 {% with state=addr.state zip=addr.postal_code %}
-<div id="content"class="info-window">
+<div id="content"class="info-window text-center">
   <span style="font-size: 16px;">
     <address>{{ street }}<br>
       {{ city }},&nbsp;{{ state.abbreviation }}&nbsp;{{ zip }}<br>

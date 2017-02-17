@@ -5,14 +5,13 @@
     <div class="row">
       <div class="col-lg-3 col-md-3 col-sm-4">
         <p class="lead"></p>
-      </div> <!-- col-lg-8 col... -->
+      </div>
       <div class="col-lg-9 col-md-9 col-sm-8 col-xs-offset-3">
-        <div class="sponsor">
-        </div> <!-- sponsor -->
-      </div> <!-- col-lg-4 col... -->
-    </div> <!-- row -->
-  </div> <!-- page-header -->
-</div> <!-- container-fluid -->
+        <div class="sponsor"></div>
+      </div>
+    </div>
+  </div>
+</div>
 <style>@import url({{ STATIC_URL }}css/services.css);</style>
 <div class="container">
   <div class="row">
@@ -25,9 +24,9 @@
         {% for service in service_list %}
           <a class="list-group-item" href="{{ service.get_absolute_url }}">{{ service.name }}</a>
         {% endfor %}
-        </div> <!--list-group -->
-      </div> <!-- panel -->
-    </div> <!-- col-sm... -->
+        </div>
+      </div>
+    </div>
     <script type="application/ld+json">{% include 'metadata/services.json' %}</script>
     <div class="col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-1">
       {% for service in service_list %}
@@ -41,15 +40,15 @@
           </div>
         </div>
         {% if forloop.counter0 == 0 %}
-      </div> <!-- col-sm... -->
-    </div> <!-- row -->
+      </div>
+    </div>
     <div class="row">
       <div class="col-sm-8 col-sm-offset-2">
         {% endif %}
       {% endfor %}
-    </div> <!-- col-sm... -->
-  </div> <!-- row -->
-</div> <!-- container -->
+    </div>
+  </div>
+</div>
 {% endblock content %}
 {% block page_extra_script %}
 <script async>
