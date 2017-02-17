@@ -1,0 +1,15 @@
+{% spaceless %}
+{% with addr=site.schema.address phone=site.schema.telephone %}
+{% with street=addr.street city=addr.locality %}
+{% with state=addr.state zip=addr.postal_code %}
+<div id="content"class="info-window">
+  <span style="font-size: 16px;">
+    <address>{{ street }}<br>
+      {{ city }},&nbsp;{{ state.abbreviation }}&nbsp;{{ zip }}<br>
+      <a href="tel:{{ phone|urlencode }}">{{ phone }}</a>
+    </address>
+    <a href="{{ links.google_maps }}"target="_blank">Get Directions
+      <i class="fa fa-external-link-square"></i>
+    </a>
+  </span>
+</div>{% endwith %}{% endwith %}{% endwith %}{% endspaceless %}

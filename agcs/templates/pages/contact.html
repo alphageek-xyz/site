@@ -1,4 +1,4 @@
-{% extends 'base_page.html' %}{% load bootstrap3 recaptcha2 cache %}
+{% extends 'base_page.html' %}{% load bootstrap3 staticfiles recaptcha2 cache %}
 {% block page_title %}Contact Us{% endblock page_title %}
 {% block page_extra_head %}{% recaptcha_init %}
 <style>#GoogleMap {height: 480px;border: 2em solid white;}</style>
@@ -10,15 +10,14 @@
       <div class="col-lg-8 col-md-7 col-sm-6">
         <h1>Email us</h1>
         <p class="lead"></p>
-      </div> <!-- col-lg-8 col... -->
+      </div>
       <div class="col-lg-4 col-md-5 col-sm-6">
-        <div class="sponsor">
-        </div> <!-- sponsor -->
-      </div> <!-- col-lg-4 col... -->
-    </div> <!-- row -->
-  </div> <!-- page-header -->
+        <div class="sponsor"></div>
+      </div>
+    </div>
+  </div>
   <div class="row">
-    <div class='col-md-5'>
+    <div class="col-md-5">
       {% if messages %}
         {% for message in messages %}
           {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
@@ -33,67 +32,90 @@
         div.form-group > button.btn {margin-left: 1em;}
         textarea.form-control{max-width: 100%;}
       </style>
-      <form id='contact_form' class="form-horizontal" role="form" action="" method="POST" novalidate>{% csrf_token %}
-        {% bootstrap_form form show_label=False form_group_class='form-group row' field_class='col-md-12' %}
+      <form id="contact_form" class="form-horizontal" role="form" action="" method="POST" novalidate>{% csrf_token %}
+        {% for field in form %}
+          {% bootstrap_field field show_label=False form_group_class='form-group row' field_class='col-md-12' %}
+        {% endfor %}
         {% buttons submit='Submit' reset="Cancel" %}{% endbuttons %}
       </form>
     </div>
-    <div class="col-md-6 col-md-offset-1" id="GoogleMap">
-    </div> <!-- #GoogleMap -->
-  </div> <!-- row -->
+    <div class="col-md-6 col-md-offset-1" id="GoogleMap"></div>
+  </div>
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
       <h1 class="text-center"></h1>
     </div>
-  </div> <!-- row -->
-</div> <!-- container -->
+  </div>
+</div>
 {% endblock content %}
 {% block page_extra_script %}
+<script src="{% static 'js/vendor/jquery.are-you-sure.js' %}"></script>
+<script src="{% static 'js/vendor/ays-beforeunload-shim.js' %}"></script>
+<script>
+  function enableSubmit() {
+    document.querySelectorAll(
+      '#contact_form button[type=submit]'
+    ).forEach(function(i) {
+      i.disabled = false;
+    });
+  }
+
+  function disableSubmit() {
+    document.querySelectorAll(
+      '#contact_form button[type=submit]'
+    ).forEach(function(i) {
+      i.disabled = true;
+    });
+  }
+</script>
+<script>
+  $(function() {
+    $('#contact_form').areYouSure({
+      addRemoveFieldsMarksDirty: true
+    });
+
+    if ($('#contact_form > .form-group.row.has-error').length > 0)
+      $('#contact_form').addClass('dirty');
+
+    if (!$('#recaptcha-token').attr('value'))
+      disableSubmit();
+  });
+</script>
 <script>
   function initMap() {
-      var agcs = new google.maps.LatLng(33.023705,-96.772012);
-      var infowindow = new google.maps.InfoWindow({
-          content: '<div id="content">\
-            <span style="font-size: 16px;">\
-              <address>{{ site.schema.address.street }}<br>\
-                {{ site.schema.address.locality|add:',' }}\
-                {{ site.schema.address.state.abbreviation }}\
-                {{ site.schema.address.postal_code }}<br>\
-                <a href="tel:{{ site.schema.telephone|urlencode }}">\
-                  {{ site.schema.telephone }}</a>\
-              </address>\
-              <a href="{{ links.google_maps }}" target="_blank">Get Directions\
-              <i class="fa fa-external-link-square"></i>\
-            </a></span></div>'
-      });
+    var agcs = new google.maps.LatLng(33.023705,-96.772012);
 
-      var map = new google.maps.Map(document.getElementById('GoogleMap'), {
-          center: agcs,
-          zoom: 10,
-          mapTypeId: google.maps.MapTypeId.ROADMAP,
-          mapTypeControl:false,
-          streetViewControl:false
-      });
+    var map = new google.maps.Map(document.getElementById('GoogleMap'), {
+        center: agcs,
+        zoom: 10,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        mapTypeControl:false,
+        streetViewControl:false
+    });
 
-      var marker = new google.maps.Marker({
-          position:agcs,
-          map: map,
-          title: 'AGCS'
-      });
+    var marker = new google.maps.Marker({
+        position:agcs,
+        map: map,
+        title: 'AGCS'
+    });
 
-      google.maps.event.addListener(marker, 'click', function() {
-          infowindow.open(map, marker);
-          map.setZoom(10);
-          map.setCenter(marker.getPosition());
-      });
+    var infowindow = new google.maps.InfoWindow({
+      content: `{% include 'parts/infowindow.html' %}`
+    });
 
-      google.maps.event.addListener(map,'center_changed',function() {
-          window.setTimeout(function() {
-              map.panTo(marker.getPosition());
-          },3000);
-      });
+    google.maps.event.addListener(marker, 'click', function() {
+        infowindow.open(map, marker);
+        map.setZoom(10);
+        map.setCenter(marker.getPosition());
+    });
 
-      infowindow.open(map, marker);
+    google.maps.event.addListener(map,'center_changed',function() {
+        window.setTimeout(function() {
+            map.panTo(marker.getPosition());
+        }, 3000);
+    });
+
+    infowindow.open(map, marker);
   }
 </script>
 {% if debug %}

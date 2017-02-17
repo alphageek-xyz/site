@@ -15,6 +15,7 @@ from .utils import mkemail
 
 
 class ContactForm(forms.ModelForm):
+
     class Meta:
         model = Contact
         fields = [
@@ -22,8 +23,18 @@ class ContactForm(forms.ModelForm):
             'phone', 'email', 'comment',
         ]
 
-    cc_myself = forms.BooleanField(required=False, initial=False)
-    captcha = ReCaptchaField(label="   ", widget=ReCaptchaWidget())
+    cc_myself = forms.BooleanField(
+        required=False,
+        initial=False,
+    )
+
+    captcha = ReCaptchaField(
+        label="   ",
+        widget=ReCaptchaWidget(
+            callback='enableSubmit',
+            expired_callback='disableSubmit'
+        ),
+    )
 
     def send_email(self, request=None):
 
