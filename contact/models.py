@@ -26,8 +26,7 @@ class Contact(models.Model):
         unique=False,
         validators=[
             validators.MinLengthValidator(2),
-            validators.RegexValidator(
-                '^[aA-zZ]+\Z$',
+            validators.RegexValidator('^[aA-zZ]+\Z$',
                 message='Enter a valid first name.',
                 code='invalid',
             ),
@@ -40,8 +39,7 @@ class Contact(models.Model):
         unique=False,
         validators=[
             validators.MinLengthValidator(2),
-            validators.RegexValidator(
-                '^[aA-zZ]+$',
+            validators.RegexValidator('^[aA-zZ]+$',
                 message='Enter a valid last name.',
                 code='invalid',
             ),
@@ -52,9 +50,10 @@ class Contact(models.Model):
         verbose_name='Phone Number',
         max_length=10,
         validators=[
-            validators.MinLengthValidator(10),
-            validators.int_list_validator(
-                sep='',
+            validators.MinLengthValidator(10,
+                message='U.S. phone numbers consist of exactly 10 digits.'
+            ),
+            validators.int_list_validator(sep='',
                 message='Enter a valid phone number (Only Integers).'
             ),
         ],
@@ -63,12 +62,7 @@ class Contact(models.Model):
     email = models.CharField(
         verbose_name='Email Address',
         max_length=100,
-        validators=[
-            validators.EmailValidator(
-                message='Enter a valid email.',
-                code='invalid'
-            ),
-        ],
+        validators=[validators.EmailValidator()],
     )
 
     comment = models.TextField(
