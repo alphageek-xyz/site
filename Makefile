@@ -9,7 +9,7 @@ clean:
 
 install:
 	pip install -U setuptools
-	pip install -r requirements/dev.txt
+	pip install -r requirements/exact.txt
 
 run:
 	python manage.py runserver 0.0.0.0:8000
