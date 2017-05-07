@@ -12,11 +12,9 @@ from snowpenguin.django.recaptcha2.fields import ReCaptchaField
 from snowpenguin.django.recaptcha2.widgets import ReCaptchaWidget
 from .models import Contact
 from .utils import mkemail
-from .fields import PhoneField
+from .fields import FormPhoneField
 
 class ContactForm(forms.ModelForm):
-
-    phone = PhoneField()
 
     class Meta:
         model = Contact
@@ -24,9 +22,6 @@ class ContactForm(forms.ModelForm):
             'first_name', 'last_name',
             'phone', 'email', 'comment',
         ]
-        field_classes = {
-            'email' : forms.EmailField,
-        }
 
     cc_myself = forms.BooleanField(
         required=False,

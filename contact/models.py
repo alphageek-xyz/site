@@ -2,7 +2,7 @@ from django.db import models
 from django.core import validators
 from django.core.exceptions import ValidationError
 from django.utils.functional import cached_property
-
+from .fields import ModelPhoneField
 
 STATUS_CHOICES = (
     ('r', 'Responded'),
@@ -46,24 +46,33 @@ class Contact(models.Model):
         ],
     )
 
-    phone = models.CharField(
-        verbose_name='Phone Number',
-        max_length=10,
-        validators=[
-            validators.MinLengthValidator(10,
-                message='U.S. phone numbers consist of exactly 10 digits.'
-            ),
-            validators.int_list_validator(sep='',
-                message='Enter a valid phone number (Only Integers).'
-            ),
-        ],
+    phone = ModelPhoneField(
+        verbose_name='Phone Number'
     )
 
-    email = models.CharField(
-        verbose_name='Email Address',
+#    phone = models.CharField(
+#        verbose_name='Phone Number',
+#        max_length=10,
+#        validators=[
+#            validators.MinLengthValidator(10,
+#                message='U.S. phone numbers consist of exactly 10 digits.'
+#            ),
+#            validators.int_list_validator(sep='',
+#                message='Enter a valid phone number (Only Integers).'
+#            ),
+#        ],
+#    )
+
+    email = models.EmailField(
         max_length=100,
-        validators=[validators.EmailValidator()],
+        verbose_name='Email Address'
     )
+
+#    email = models.CharField(
+#        verbose_name='Email Address',
+#        max_length=100,
+#        validators=[validators.EmailValidator()],
+#    )
 
     comment = models.TextField(
         verbose_name='Comment',
