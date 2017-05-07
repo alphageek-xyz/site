@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 from django.utils.functional import cached_property
 from .fields import ModelPhoneField
 
+
 STATUS_CHOICES = (
     ('r', 'Responded'),
     ('c', 'Closed'),

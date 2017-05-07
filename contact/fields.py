@@ -1,11 +1,12 @@
 import re
-from django.forms import TextInput as FormTextInput
+from django.forms import TextInput
 from django.forms import CharField as FormCharField
 from django.db.models import CharField as ModelCharField
 from django.core import validators
 from .validators import validate_phone_number
 
-class PhoneInput(FormTextInput):
+
+class PhoneInput(TextInput):
     input_type = 'tel'
 
 
