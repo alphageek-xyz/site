@@ -40,9 +40,9 @@ USE_X_FORWARDED_HOST = True
 
 HTML_MINIFY = False
 
-STATIC_ROOT = str(DATA_DIR.joinpath('static'))
+STATIC_ROOT = '/static/files'
 
-MEDIA_ROOT = str(DATA_DIR.joinpath('media'))
+MEDIA_ROOT = '/static/media'
 
 SECURE_BROWSER_XSS_FILTER = True
 

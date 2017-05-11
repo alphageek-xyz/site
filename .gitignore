@@ -67,3 +67,5 @@ coverage_html_report
 services.json
 agcs/static/img/favicon/
 *.swp
+static/files
+static/media

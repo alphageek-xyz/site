@@ -29,11 +29,11 @@ CSRF_COOKIE_DOMAIN = None
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-MEDIA_ROOT = str(DATA_DIR.joinpath('media_root'))
+MEDIA_ROOT = '/static/media_root'
 
 SESSION_COOKIE_SECURE = False
 
-STATIC_ROOT = str(DATA_DIR.joinpath('static_root'))
+STATIC_ROOT = '/static/static_root'
 
 if DEBUG:
     try:

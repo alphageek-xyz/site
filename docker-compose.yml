@@ -1,0 +1,20 @@
+version: '2'
+services:
+  db:
+    image: postgres
+  nginx:
+    build: ./img
+    image: agcs:hello
+    command: /usr/bin/supervisord
+    volumes:
+      - ./app:/app
+      - ./static:/static
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/extra:/etc/nginx/extra
+      - /var/lib/acme:/var/lib/acme
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8000:8000"
+    depends_on:
+      - db
