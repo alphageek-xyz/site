@@ -11,14 +11,12 @@ PROJECT_PACKAGE = Path(__file__).resolve().parent.parent
 
 BASE_DIR = PROJECT_PACKAGE.parent
 
-DATA_DIR = Path(os.environ['DJANGOPROJECT_DATA_DIR']) if (
-    'DJANGOPROJECT_DATA_DIR' in os.environ
-) else BASE_DIR.parent
+DATA_DIR = Path('/data')
 
 LOG_DIR = DATA_DIR.joinpath('log', 'django')
 
 try:
-    with DATA_DIR.joinpath('conf', 'secrets.json').open() as handle:
+    with open('/root/secrets.json') as handle:
         SECRETS = json.load(handle)
 except IOError: # pragma: no cover
     SECRETS = {
@@ -36,10 +34,10 @@ SECRET_KEY            = str(SECRETS['secret_key'])
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'agcs_db',
-        'USER': 'django',
-        'HOST': SECRETS.get('db_host', ''),
-        'PASSWORD': SECRETS.get('db_password', ''),
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'HOST': 'db',
+        'PORT': 5432,
     },
 }
 
@@ -54,7 +52,6 @@ ADMINS = MANAGERS  = (
 DEFAULT_REPLY_ADDR = '"Alpha Geek (contact)" <contact@alphageek.xyz>'
 DEFAULT_FROM_EMAIL = '"Alpha Geek (no-reply)" <no-reply@alphageek.xyz>'
 SERVER_EMAIL = '"Alpha Geeks (root)" <root@alphageek.xyz>'
-
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 ADMIN_URL        = 'admin/'

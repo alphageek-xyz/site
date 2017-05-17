@@ -2,13 +2,14 @@ version: '2'
 services:
   db:
     image: postgres
-  nginx:
+  agcs:
     build: ./img
-    image: agcs:hello
+    image: site
     command: /usr/bin/supervisord
     volumes:
       - ./app:/app
       - ./static:/static
+      - ./data:/data
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/extra:/etc/nginx/extra
       - /var/lib/acme:/var/lib/acme
