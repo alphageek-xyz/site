@@ -1,0 +1,52 @@
+{
+  "@context": "http://schema.org/",
+  "@type": "Service",
+  "serviceType": "Computer service",
+  "providerMobility": "dynamic",
+  "provider":   {
+    "@type": "LocalBusiness",
+    "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "{{ site.schema.address.locality }}",
+        "addressRegion": "{{ site.schema.address.state.abbreviation }}",
+        "postalCode": "{{ site.schema.address.postal_code }}",
+        "streetAddress": "{{ site.schema.address.street }}"
+    },
+    "name": "{{ site.schema.name }}",
+    "description": "{{ site.schema.description }}",
+    "alternateName": "{{ site.schema.alt_name }}",
+    "url": "{{ site.schema.url }}",
+    "email": "{{ site.schema.email }}",
+    "telephone": "{{ site.schema.telephone }}",
+    "logo": "{{ site.schema.logo }}",
+    "sameAs": [{% for l in site.schema.links.all %}
+      "{{ l.url }}"{% if not forloop.last %},{% endif %}{% endfor %}
+    ]
+  },
+  "areaServed": {
+      "@type": "GeoCircle",
+      "geoMidpoint": {
+        "@type": "GeoCoordinates",
+        "latitude": "33.023705",
+        "longitude": "-96.772012"
+      },
+      "geoRadius": "25"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Computer services",
+    "itemListElement": [
+    {% for service in service_list %}
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "{{ service.name }}",
+          "url": "{{ site.schema.url }}{% url 'services' %}#{{ service.anchor_id }}"
+        }
+      }{% if not forloop.last %},{% endif %}
+    {% endfor %}
+    ]
+  }
+}
+

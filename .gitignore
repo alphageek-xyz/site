@@ -70,3 +70,5 @@ agcs/static/img/favicon/
 *.swp
 static/files
 static/media
+app/data.json
+secrets.json

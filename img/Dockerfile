@@ -3,7 +3,6 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /app
 COPY supervisord.conf /etc/supervisor/conf.d/memcached.conf
 COPY bashrc /root/.bashrc
-COPY secrets.json /root/secrets.json
 COPY requirements/exact.txt /app/requirements.txt
 RUN pip install -U pip
 RUN pip install -U setuptools

@@ -16,7 +16,7 @@ DATA_DIR = Path('/data')
 LOG_DIR = DATA_DIR.joinpath('log', 'django')
 
 try:
-    with open('/root/secrets.json') as handle:
+    with open('/data/conf/secrets.json') as handle:
         SECRETS = json.load(handle)
 except IOError: # pragma: no cover
     SECRETS = {
