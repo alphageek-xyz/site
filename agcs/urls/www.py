@@ -99,7 +99,7 @@ urlpatterns = [
         include('treenav.urls')
     ),
 
-    url(r'^docs/',
+    url(r'^docs/public/',
         include('pubdocs.urls')
     ),
 

@@ -4,7 +4,7 @@ html {
 }
 
 body {
-  padding-top: 50px;
+/*  padding-top: 60px;*/
   padding-bottom: 385px;
 
 }
@@ -121,4 +121,26 @@ footer address.company-addr {
   footer {
     height: 80px;
   }
+}
+
+#brand-div {
+  overflow-y: hidden;
+}
+
+.navbar {
+  border-radius: 0;
+}
+
+#navbar > ul > li.open > a {
+  background-color: #15a589;
+}
+
+#navbar > ul > li.active > a {
+  background-color: rgba(44, 62, 80, 0.43);
+}
+
+#sidebar > div > div.list-group.table-of-contents.panel-body > a,
+#navbar > ul > li.open > a,
+#navbar > ul > li.active > a {
+  border-radius: 4px;
 }

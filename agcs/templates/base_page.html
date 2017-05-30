@@ -27,7 +27,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-inverse">
   {% block navigation %}
     {% include 'parts/navigation.html' %}
   {% endblock navigation %}
@@ -101,27 +101,36 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   });
 </script>
 
+<noscript>
+    function modbrand() {
+
+      var sstr = function(s) {
+        $('.navbar-brand').text(s);
+      };
+
+      var swidth = function() {
+        return $(screen).attr('width');
+      };
+
+      sstr("Alpha Geeks");
+
+      if (swidth() > 374) {
+        sstr("Alpha Geek Computer Services");
+      }
+      else if (swidth() > 295) {
+        sstr("Alpha Geek Services");
+      }
+    }
+  $(document).ready(function() {
+    modbrand();
+    $(window).resize(modbrand)
+  });
+</noscript>
+
 <script>
   $(document).ready(function() {
-    function isSmall() {
-      return $('.hidden-xs').css('display') == "none";
-    }
-
     $('.dropdown').on("show.bs.dropdown hide.bs.dropdown", function() {
-      if (isSmall())
         $('i', this).toggleClass('fa-caret-down fa-caret-up');
-    });
-
-    $('.dropdown').hover(function() {
-      if (isSmall()) return;
-      $('.dropdown-menu', this).stop(true, true).fadeIn('fast');
-      $(this).toggleClass('open');
-      $('i', this).toggleClass('fa-caret-down fa-caret-up');
-    }, function() {
-      if (isSmall()) return;
-      $('.dropdown-menu', this).stop(true, true).fadeOut('fast');
-      $(this).toggleClass('open');
-      $('i', this).toggleClass('fa-caret-down fa-caret-up');
     });
   });
 </script>

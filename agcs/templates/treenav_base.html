@@ -1,22 +1,21 @@
-{% extends 'base_page.html' %}{% load bootstrap3 staticfiles recaptcha2 cache %}
-{% load treenav_tags %}
+{% extends 'base_page.html' %}{% load treenav_tags %}
 {% block page_title %}Docs{% endblock page_title %}
 {% block content %}
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4 col-sm-6">
       <em><h2 class="text-center">Reference</h2></em>
       <div class="well">
         {% show_treenav "ref-docs" %}
       </div>
     </div>
-    <div class='col-md-4'>
+    <div class="col-md-4 col-sm-6">
       <em><h2 class="text-center">Misc</h2></em>
       <div class="well">
         {% single_level_menu "misc-docs" 0 %}
       </div>
     </div>
-    <div class='col-md-4'>
+    <div class="col-md-4 col-sm-6">
       <em><h2 class="text-center">Other</h2></em>
       <div class="well">
         {% show_treenav "other-docs" %}
