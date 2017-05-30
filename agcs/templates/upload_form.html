@@ -1,0 +1,37 @@
+{% extends 'base_page.html' %}{% load bootstrap3 staticfiles recaptcha2 cache %}
+{% block page_title %}Contact Us{% endblock page_title %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-5">
+      {% if messages %}
+        {% for message in messages %}
+          {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+      <div class="alert alert-success alert-dismissable alert-link">
+        <button class="close" type="button" data-dismiss="alert" aria-hidden="true">&#215;</button>
+        {{ message }}
+      </div>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+      <style>
+        div.form-group > button.btn {margin-left: 1em;}
+        textarea.form-control{max-width: 100%;}
+      </style>
+      <form id="document_upload_form" class="form-horizontal" role="form" action="" method="POST" novalidate>{% csrf_token %}
+        {% for field in form %}
+          {% bootstrap_field field show_label=False form_group_class='form-group row' field_class='col-md-12' %}
+        {% endfor %}
+        {% buttons submit='Submit' reset="Cancel" %}{% endbuttons %}
+      </form>
+    </div>
+    <div class="col-md-6 col-md-offset-1" id="GoogleMap"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <h1 class="text-center"></h1>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+

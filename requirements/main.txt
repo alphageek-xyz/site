@@ -21,3 +21,4 @@ psycopg2>=2.6.2
 pymdown-extensions>=1.1
 python3-memcached>=1.51
 pytz>=2016.7
+django-treenav

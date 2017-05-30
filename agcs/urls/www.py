@@ -95,6 +95,14 @@ urlpatterns = [
         name='chrome_manifest'
     ),
 
+    url(r'^treenav/',
+        include('treenav.urls')
+    ),
+
+    url(r'^docs/',
+        include('pubdocs.urls')
+    ),
+
     url(r'^admin/doc/',
         include('django.contrib.admindocs.urls')
     ),

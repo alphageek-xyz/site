@@ -112,6 +112,8 @@ INSTALLED_APPS = [
     'metadata.apps.MetadataConfig',
     'headers.apps.HeadersConfig',
     'myip.apps.MyIPConfig',
+    'treenav',
+    'pubdocs.apps.PubdocsConfig',
 ] + get_machina_apps([
     'community.apps.forum_conversation',
     'community.apps.forum_member',
@@ -158,6 +160,7 @@ TEMPLATES = [
                 'landing.core.context_processors.services',
                 'metadata.core.context_processors.links',
                 'metadata.core.context_processors.website',
+                'treenav.context_processors.treenav_active',
             ],
             'loaders': [
                 'django.template.loaders.filesystem.Loader',
