@@ -26,26 +26,6 @@ from metadata.core.context_processors import login_kwargs
 from landing.views import ovpnfile
 from metadata.models import Website
 
-#def login_kwargs(**kwargs):
-#    site=Website.objects.first()
-#    links=dict(site.schema.links.filter(tags__name='social').values_list('name', 'url'))
-#    retdict={}
-#    retdict.update(kwargs)
-#    extra_context={'links':links}
-#    extra_context.update({'site': site})
-#    retdict.update({'extra_context': extra_context})
-#    return retdict
-
-#def login_kwargs(**kwargs):
-#    kwargs.update({
-#        'extra_context': dict([
-#        (i,j) for i,j in _links().items()
-#                  ] + [
-#        (x,y) for x,y in _website().items()
-#    ])})
-#    return kwargs
-#    tn = FlatPage.objects.get(url=url).template_name or "flatpages/default.html"
-#    fpp = Path(loader.get_template(tn).template.origin.name)
 
 def fp_lastmod(request, url):
     return datetime.datetime.fromtimestamp(
@@ -209,15 +189,6 @@ urlpatterns = [
         kwargs=login_kwargs(),
         name='password_reset_complete'
     ),
-
-
-#    url(r'^docs/priv/vpn.alphageek.xyz.ovpn$',
-#        ovpnfile, name='ovpn'
-#    ),
-
-#    url(r'accounts/',
-#        include('django.contrib.auth.urls')
-#    ),
 ]
 
 if settings.DEBUG:

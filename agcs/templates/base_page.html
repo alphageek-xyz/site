@@ -152,20 +152,3 @@ function modnav() {
 
 </script>
 {% endblock bootstrap3_extra_script %}
-
-{% comment %}
-<script>
-  function modbrand() {
-    var sstr = (s) => $(".navbar-brand").text(s),
-        swid = ()  => $(window).width();
-    if (swid() > 374)
-      sstr("Alpha Geek Computer Services");
-    else if (swid() > 295)
-      sstr("Alpha Geek Services");
-    else sstr("Alpha Geeks");
-  }
-  $(document).ready(function() {
-    modbrand(); $(window).resize(modbrand)
-  });*/
-</script>
-{% endcomment %}
