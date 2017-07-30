@@ -1,36 +1,38 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load staticfiles bootstrap3 cache landing_utils favicon %}
 {% block bootstrap3_extra_head %}
-<link rel="stylesheet" href="{% static 'css/landing.css' %}" type="text/css" charset="utf-8">
 <meta name="keywords" content="{{ site.keywords.all|join:', ' }}">
 <meta name="description" content="{{ site.schema.description }}">
+{% if "services" not in request.path %}<meta name="robots" content="all">{% endif %}
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="x5-fullscreen" content="true">
+<meta name="full-screen" content="yes">
+<meta name="x5-page-mode" content="app">
+<meta name="browsermode" content="application">
+<meta name="theme-color" content="#cccccc">
+<meta name="msapplication-TileColor" content="#cccccc">
+<meta name="msapplication-tap-highlight" content="no">
+<meta name="application-name" content="{{ site.schema.alt_name }}">
+<meta name="apple-mobile-web-app-title" content="{{ site.schema.alt_name }}">
 <meta name="author" content="Ryan Kaiser">
 <meta name="copyright" content="{{ site.schema.name }}">
-<meta name="robots" content="all">
-<meta name="apple-mobile-web-app-title" content="{{ site.schema.alt_name }}">
-<meta name="application-name" content="{{ site.schema.alt_name }}">
+<meta property="og:description" content="{{ site.schema.description }}">
 <meta name="google-site-verification" content="obUUNOlNII3lM4L7fM8r_teEVmgRiJcRHksdyQoBW1Q" />
 <meta name="msvalidate.01" content="4A9ECC2E495C85CC9CC904F51D67E03A">
-<meta property="og:description" content="{{ site.schema.description }}">
-<meta name="theme-color" content="#cccccc">
 <link rel="manifest" href="{% url 'chrome_manifest' %}">
 <link rel="canonical" href="{% block canonical %}{{ site.schema.url }}{{ request.path }}{% endblock canonical %}" itemprop="url">
-{% get_favicons extra.favicon_prefix %}{% block page_extra_head %}{% endblock page_extra_head %}
-<script type="application/ld+json">{% include 'metadata/schema.json' %}</script>
+{% get_favicons extra.favicon_prefix %}
+<link rel="stylesheet" href="{% static 'css/base.min.css' %}">
+{% block page_extra_head %}{% endblock page_extra_head %}
 {% endblock bootstrap3_extra_head %}
 
 {% block bootstrap3_content %}
-<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-N4BNCJ"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-
-<script>{% inline_static_file 'js/tag-manager.js' 'js' %}</script>
-
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
 
-<nav class="navbar navbar-inverse">
-  {% block navigation %}
-    {% include 'parts/navigation.html' %}
-  {% endblock navigation %}
+<nav class="navbar navbar-inverse">{% block navigation %}
+    {% include "parts/navigation.html" %}
+{% endblock %}
 </nav>
 
 <header>
@@ -41,39 +43,40 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <hr class="star-primary">
     </div>
   </div>
-{% endblock base_header %}
-{% block header %}{% endblock header %}
+{% endblock %}
+{% block header %}{% endblock %}
 </header>
 
 <main id="content" class="group" role="main">
-  {% block content %}{% endblock content %}
+  {% block content %}{% endblock %}
 </main>
 
 <footer class="footer footer-inverse">
-  {% block footer %}
-    {% include 'parts/footer.html' %}
-  {% endblock footer %}
+  {% block footer %}{% cache 600 footer %}
+    {% include "parts/footer.html" %}
+  {% endcache %}{% endblock %}
 </footer>
 
-{% block scroll_top_wrapper %}
-  {% include 'parts/scroll-top.html' %}
-{% endblock scroll_top_wrapper %}
+{% block scroll_top_wrapper %}{% cache 43200 scrolltop %}
+  {% include "parts/scroll-top.html" %}
+{% endcache %}{% endblock %}
 
 {% endblock bootstrap3_content %}
 
 {% block bootstrap3_extra_script %}
-  {% block page_extra_script %}{% endblock page_extra_script %}
+  {% block page_extra_script %}{% endblock %}
 
+{% if request.path != '/' %}
 <script>
   $(function() {
     $(document).scroll(function() {
       if ($(window).scrollTop() > 100)
-        $('.scroll-top-wrapper').addClass('show');
-      else $('.scroll-top-wrapper').removeClass('show');
-    }); $('.scroll-top-wrapper').click(function () {
-      verticalOffset = typeof(verticalOffset) != 'undefined' ? verticalOffset : 0;
-      element = $('body'); offset = element.offset(); offsetTop = offset.top;
-      $('html, body').animate({scrollTop: offsetTop}, 50, 'linear');
+        $(".scroll-top-wrapper").addClass("show");
+      else $(".scroll-top-wrapper").removeClass("show");
+    }); $(".scroll-top-wrapper").click(function () {
+      verticalOffset = typeof(verticalOffset) != "undefined" ? verticalOffset : 0;
+      element = $("body"); offset = element.offset(); offsetTop = offset.top;
+      $("html, body").animate({scrollTop: offsetTop}, 50, "linear");
     });
   });
 </script>
@@ -83,55 +86,86 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     if ((/Mobile/i.test(navigator.appVersion) ||
          /Mobile/i.test(navigator.userAgent)) &&
        ! /IPad/i.test(navigator.userAgent))
-      $('#directions-link').attr('href', function() {
-        return /saddr/i.test(this) ? this : this + '&saddr=My%20location';
+      $("#directions-link").attr("href", function() {
+        return /saddr/i.test(this) ? this : this + "&saddr=My%20location";
       });
   });
 </script>
 
 <script>
   $(document).ready(function() {
-    $(window.location.hash + '-dd-link').parent().toggleClass('active');
-    $('.service-link').parent('.service-item').click(function() {
-      $('#navbar').collapse('hide');
-      $('.service-item.active').removeClass('active');
-      $(this).addClass('active');
-      window.location = $(this).find('a.service-link').attr('href');
+    $(window.location.hash + "-dd-link").parent().toggleClass("active");
+    $(".service-link").parent(".service-item").click(function() {
+      $("#navbar").collapse("hide");
+      $(".service-item.active").removeClass("active");
+      $(this).addClass("active");
+      window.location = $(this).find("a.service-link").attr("href");
     });
   });
 </script>
-
-<noscript>
-    function modbrand() {
-
-      var sstr = function(s) {
-        $('.navbar-brand').text(s);
-      };
-
-      var swidth = function() {
-        return $(screen).attr('width');
-      };
-
-      sstr("Alpha Geeks");
-
-      if (swidth() > 374) {
-        sstr("Alpha Geek Computer Services");
-      }
-      else if (swidth() > 295) {
-        sstr("Alpha Geek Services");
-      }
-    }
-  $(document).ready(function() {
-    modbrand();
-    $(window).resize(modbrand)
-  });
-</noscript>
-
+{% endif %}
 <script>
+  var carets = "fa-caret-down fa-caret-up";
+function modnav() {
   $(document).ready(function() {
-    $('.dropdown').on("show.bs.dropdown hide.bs.dropdown", function() {
-        $('i', this).toggleClass('fa-caret-down fa-caret-up');
+    $(".dropdown").on("show.bs.dropdown hide.bs.dropdown", function() {
+      $("i", this).toggleClass(carets);
     });
+    if (Modernizr.hovermq && $(window).width() > 767) {
+      $(".dropdown").hover(function() {
+        $(this).toggleClass("open");
+        $("i", this).toggleClass(carets);
+      });
+      $(".dropdown-menu li").click(function() {
+        var href = $("a", this).attr("href");
+        var pat = new RegExp(window.location.pathname+"#[^/]+$", "g");
+        if (!href.match(pat) || !href.match(/#[^/]+/)) {
+          $(this).parent(".dropdown-menu").hide();
+          $(this).parents(".dropdown.open").trigger("hide.bs.dropdown");
+        }
+      });
+      $(window).resize(function() {
+        if ($(window).width() < 768)
+          $(".dropdown").off("hover");
+      });
+    }
   });
+}
+
+{% if request.path == '/' %}
+  var nIntervId;
+
+  function do_modnav() {
+    if (!window.jQuery) {
+      console.log('still waiting for jquery...');
+      return null;
+    }
+    clearInterval(nIntervId);
+    console.log('jquery loaded. interval cleared!');
+    modnav();
+  }
+
+  nIntervId = setInterval(do_modnav, 1000);
+{% else %}
+  modnav();
+{% endif %}
+
 </script>
 {% endblock bootstrap3_extra_script %}
+
+{% comment %}
+<script>
+  function modbrand() {
+    var sstr = (s) => $(".navbar-brand").text(s),
+        swid = ()  => $(window).width();
+    if (swid() > 374)
+      sstr("Alpha Geek Computer Services");
+    else if (swid() > 295)
+      sstr("Alpha Geek Services");
+    else sstr("Alpha Geeks");
+  }
+  $(document).ready(function() {
+    modbrand(); $(window).resize(modbrand)
+  });*/
+</script>
+{% endcomment %}

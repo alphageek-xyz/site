@@ -1,11 +1,19 @@
 import os
+from pathlib import Path
 from django.core import mail
 from django.test import TestCase, override_settings
 from contact import forms as contact_forms
 from .test_models import ok_fields
 
 
+@override_settings(
+    FIXTURE_DIRS = [
+        str(Path(__file__).resolve()
+            .parent.parent.joinpath('agcs','fixtures')),
+	]
+)
 class ContactFormTest(TestCase):
+    fixtures = [ 'all.json' ]
 
     def setUp(self):
         self.data = ok_fields._asdict()

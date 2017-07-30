@@ -125,7 +125,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_hosts.middleware.HostsRequestMiddleware',
     'django.middleware.http.ConditionalGetMiddleware',
-    'headers.middleware.VaryAcceptEncodingMiddleware',
+#   'headers.middleware.VaryAcceptEncodingMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -134,7 +134,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'community.middleware.BetterForumPermissionMiddleware',
     'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
-    'headers.middleware.ViaHeaderMiddleware',
+#   'headers.middleware.ViaHeaderMiddleware',
     'django_hosts.middleware.HostsResponseMiddleware',
 ]
 
@@ -281,3 +281,8 @@ FAVICON_PREFIX = 'img/favicon/'
 DEFAULT_WEBSITE_NAME='www.alphageek.xyz'
 
 LANGUAGES = [('en', 'English'),]
+
+LOGIN_REDIRECT_URL = '/user/blank/'
+
+PRIV_BASE = '/mnt/AGCSWWW/data/priv'
+OVPN_FILE = 'vpn.alphageek.xyz.ovpn'

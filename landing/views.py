@@ -1,8 +1,20 @@
 from django.views.generic.base import TemplateView
 from django.utils.module_loading import import_string
 from django.conf import settings
+from django.http import HttpResponse
+from django.shortcuts import render
+from django.views.decorators.cache import never_cache
+from django.contrib.auth.decorators import login_required, permission_required
+from django.core.exceptions import PermissionDenied
 from headers.views import ConditionalViewMixin, CacheControlMixin
 from .models import Service
+
+
+@never_cache
+@login_required
+@permission_required('auth.can_view_vpn_config', raise_exception=True)
+def ovpnfile(request):
+    return render(request, 'text/vpn.alphageek.xyz.ovpn', content_type='text/plain')
 
 
 class LandingPageView(ConditionalViewMixin, CacheControlMixin, TemplateView):

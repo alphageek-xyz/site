@@ -1,0 +1,54 @@
+{% extends "base_page.html" %}
+{% load bootstrap3 recaptcha2 %}
+{% block page_extra_head %}
+  {% recaptcha_init %}
+{% endblock page_extra_head %}
+
+{% block page_title %}{{ block.super }}{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+    {% block errs %}{% endblock %}
+      <form method="post" id="{% block form_id %}{% endblock %}" action="{% block form_action %}{% endblock %}" class="form-horizontal" role="form" autocomplete="off" novalidate>
+      {% csrf_token %}
+      {% block fields %}
+        {% for field in form %}
+          {% bootstrap_field field show_label=False form_group_class='form-group row' field_class='col-md-12' %}
+        {% endfor %}
+      {% endblock %}
+
+      {% block buttons %}
+      <div class="form-group" style="margin-left: 0px;">
+        <button class="btn btn-primary" type="submit">Submit</button>
+        <button class="btn" type="reset">Cancel</button>
+      </div>
+      {% endblock %}
+      </form>
+      {% block lost_pass %}<p><a href="{% url 'password_reset' %}">Lost password?</a></p>{% endblock %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block page_extra_script %}
+{% block form_extra_script %}{% endblock %}
+<script>
+  function enableSubmit() {
+    document.querySelectorAll(
+      '#login_form button[type=submit]'
+    ).forEach(function(i) {
+      i.disabled = false;
+    });
+  }
+
+  function disableSubmit() {
+    document.querySelectorAll(
+      '#login_form button[type=submit]'
+    ).forEach(function(i) {
+      i.disabled = true;
+    });
+  }
+</script>
+{% endblock page_extra_script %}
+

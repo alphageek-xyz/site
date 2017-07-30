@@ -1,8 +1,17 @@
 from django.conf import settings
 from metadata.models import Website
 
+def login_kwargs(**kwargs):
+    site=Website.objects.first()
+    links=dict(site.schema.links.filter(tags__name='social').values_list('name', 'url'))
+    retdict={}
+    retdict.update(kwargs)
+    extra_context={'links':links}
+    extra_context.update({'site': site})
+    retdict.update({'extra_context': extra_context})
+    return retdict
 
-def links(request):
+def _links():
     try:
         return {
             'links': dict(
@@ -18,6 +27,7 @@ def links(request):
     except (AttributeError, Website.DoesNotExist):
         return {}
 
+
 def _website():
     try:
         return {
@@ -29,6 +39,11 @@ def _website():
         return {
             'site': Website.objects.first()
         }
+
+
+def links(request):
+    return _links()
+
 
 def website(request):
     return _website()

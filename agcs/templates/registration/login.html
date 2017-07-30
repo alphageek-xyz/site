@@ -1,0 +1,37 @@
+{% extends "registration/base_account_form.html" %}
+
+{% block errs %}
+  <div class="container-fluid">
+    <div class="row">
+     {% if form.errors and not form.errors.captcha %}
+      <div class="col-lg-12">
+        <div class="alert alert-danger alert-dismissable">
+          <button class="close" type="button" data-dismiss="alert" aria-hidden="true">&#215;</button>
+          Your username and password do not match. Please try again.
+        </div>
+      </div>
+      {% endif %}
+      {% if next %}
+      {% if user.is_authenticated %}
+      <div class="col-lg-12">
+        <div class="alert alert-danger alert-dismissable">
+          <button class="close" type="button" data-dismiss="alert" aria-hidden="true">&#215;</button>
+            Your account doesn't have access to this page. To proceed, please
+            login with an account that has access.
+        </div>
+      </div>
+      {% else %}
+      <div class="col-lg-12">
+        <div class="alert alert-danger alert-dismissable">
+          <button class="close" type="button" data-dismiss="alert" aria-hidden="true">&#215;</button>
+          Please login to see this page.
+        </div>
+      </div>
+      {% endif %}
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block form_id %}login_form{% endblock %}
+{% block form_action %}{% url 'login' %}{% endblock %}

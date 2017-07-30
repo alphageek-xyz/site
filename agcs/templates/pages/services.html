@@ -1,4 +1,8 @@
-{% extends 'base_page.html' %}{% load cache %}
+{% extends "base_page.html" %}{% load cache landing_utils %}
+{% block page_extra_head %}
+<style>{% inline_static_file 'css/services.min.css' 'css' %}</style>
+{% endblock %}
+
 {% block content %}
 <div class="container-fluid">
   <div class="NOT-page-header" id="banner">
@@ -12,7 +16,6 @@
     </div>
   </div>
 </div>
-<style>@import url({{ STATIC_URL }}css/services.css);</style>
 <div class="container">
   <div class="row">
     <div class="col-sm-4 col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -27,7 +30,9 @@
         </div>
       </div>
     </div>
-    <script type="application/ld+json">{% include 'metadata/services.json' %}</script>
+    {% cache 600 service-md %}
+    <script type="application/ld+json">{% include_compressed "metadata/services.json" %}</script>
+    {% endcache %}
     <div class="col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-1">
       {% for service in service_list %}
         <hr id="{{ service.anchor_id }}" class="service-tag">
@@ -51,16 +56,16 @@
 </div>
 {% endblock content %}
 {% block page_extra_script %}
-<script async>
+<script>
   $(document).ready(function() {
-    var tis = $('.table-of-contents .list-group-item');
+    var tis = $(".table-of-contents .list-group-item");
     $(document).scroll(function() {
       if (!$(window).scrollTop())
-        $(tis).removeClass('last-clicked');
+        $(tis).removeClass("last-clicked");
     });
     $(tis).click(function() {
-      $(tis).removeClass('last-clicked');
-      $(this).addClass('last-clicked');
+      $(tis).removeClass("last-clicked");
+      $(this).addClass("last-clicked");
     });
   });
 </script>

@@ -1,16 +1,91 @@
 import os, re, json
 from django.conf import settings
-from django.template import Library
 from django.template.defaultfilters import stringfilter
-from django.utils.html import mark_safe, format_html
+from django.utils.html import format_html
 from django.contrib.staticfiles import finders
 from bootstrap3.templatetags.bootstrap3 import bootstrap_form, bootstrap_field
 from css_html_js_minify.html_minifier import html_minify
 from css_html_js_minify.css_minifier import css_minify
 from css_html_js_minify.js_minifier import js_minify
+from django.utils.safestring import mark_safe
+from django.template.base import token_kwargs, TemplateSyntaxError
+from django.template.loader_tags import IncludeNode, construct_relative_path
+from django.template.library import Library
 
 
 register = Library()
+
+
+class CompressedIncludeNode(IncludeNode):
+
+    def __init__(self, template, *args, **kwargs):
+        self.compress_type = kwargs.pop('compress_type', 'html')
+        super(CompressedIncludeNode, self).__init__(template, *args, **kwargs)
+
+    def render(self, context):
+        compress_func = html_minify
+        if self.compress_type == 'js':
+            compress_func = js_minify
+        elif self.compress_type == 'css':
+            compress_func = css_minify
+        else:
+            compress_func = html_minify
+
+        return mark_safe(compress_func(
+            super(CompressedIncludeNode, self).render(context)
+        ))
+
+
+@register.tag
+def include_compressed(parser, token):
+    bits = token.split_contents()
+    if len(bits) < 2:
+        raise TemplateSyntaxError(
+            "%r tag takes at least one argument: the name of the template to "
+            "be included." % bits[0]
+        )
+    compress_types =  ['js', 'css', 'html']
+    options = {}
+    remaining_bits = bits[2:]
+
+    while remaining_bits:
+        option = remaining_bits.pop(0)
+        if option in options:
+            raise TemplateSyntaxError('The %r option was specified more '
+                                      'than once.' % option)
+        if option == 'with':
+            value = token_kwargs(remaining_bits, parser, support_legacy=False)
+            if not value:
+                raise TemplateSyntaxError('"with" in %r tag needs at least '
+                                          'one keyword argument.' % bits[0])
+        elif option == 'only':
+            value = True
+
+        elif option in compress_types:
+            unused = compress_types.copy()
+            unused.remove(option)
+            for t in unused:
+                options[t] = False
+            value = True
+            options['type'] = option
+
+        else:
+            raise TemplateSyntaxError('Unknown argument for %r tag: %r.' %
+                                      (bits[0], option))
+        options[option] = value
+
+    if not "type" in options:
+        TemplateSyntaxError("'html','css' or 'js' not specified "
+                            "for %r tag." % bits[0])
+
+    compress_type = options.get('type', 'html')
+    isolated_context = options.get('only', False)
+    namemap = options.get('with', {})
+
+    bits[1] = construct_relative_path(parser.origin.template_name, bits[1])
+    return CompressedIncludeNode(parser.compile_filter(bits[1]), extra_context=namemap,
+                       isolated_context=isolated_context,
+                       compress_type=compress_type)
 
 
 @register.simple_tag

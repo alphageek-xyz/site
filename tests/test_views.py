@@ -26,7 +26,8 @@ class LandingViewsTest(TestCase):
     fixtures = [
         'services.json',
         'dev_flatpages.json',
-        'dev_sites.json'
+        'dev_sites.json',
+        'metadata.json'
     ]
 
     def setUp(self):

@@ -1,4 +1,4 @@
-{% extends 'base_page.html' %}{% load bootstrap3 staticfiles recaptcha2 cache %}
+{% extends "base_page.html" %}{% load bootstrap3 staticfiles recaptcha2 cache %}
 {% block page_title %}Contact Us{% endblock page_title %}
 {% block page_extra_head %}{% recaptcha_init %}
 <style>#GoogleMap {height: 480px;border: 2em solid white;}</style>
@@ -23,9 +23,9 @@
       </style>
       <form id="contact_form" class="form-horizontal" role="form" action="" method="POST" novalidate>{% csrf_token %}
         {% for field in form %}
-          {% bootstrap_field field show_label=False form_group_class='form-group row' field_class='col-md-12' %}
+          {% bootstrap_field field show_label=False form_group_class="form-group row" field_class="col-md-12" %}
         {% endfor %}
-        {% buttons submit='Submit' reset="Cancel" %}{% endbuttons %}
+        {% buttons submit="Submit" reset="Cancel" %}{% endbuttons %}
       </form>
     </div>
     <div class="col-md-6 col-md-offset-1" id="GoogleMap"></div>
@@ -43,7 +43,7 @@
 <script>
   function enableSubmit() {
     document.querySelectorAll(
-      '#contact_form button[type=submit]'
+      "#contact_form button[type=submit]"
     ).forEach(function(i) {
       i.disabled = false;
     });
@@ -51,7 +51,7 @@
 
   function disableSubmit() {
     document.querySelectorAll(
-      '#contact_form button[type=submit]'
+      "#contact_form button[type=submit]"
     ).forEach(function(i) {
       i.disabled = true;
     });
@@ -59,14 +59,14 @@
 </script>
 <script>
   $(function() {
-    $('#contact_form').areYouSure({
+    $("#contact_form").areYouSure({
       addRemoveFieldsMarksDirty: true
     });
 
-    if ($('#contact_form > .form-group.row.has-error').length > 0)
-      $('#contact_form').addClass('dirty');
+    if ($("#contact_form > .form-group.row.has-error").length > 0)
+      $("#contact_form").addClass("dirty");
 
-    if (!$('#recaptcha-token').attr('value'))
+    if (!$("#recaptcha-token").attr("value"))
       disableSubmit();
   });
 </script>
@@ -74,7 +74,7 @@
   function initMap() {
     var agcs = new google.maps.LatLng(33.3520803, -96.5776504);
 
-    var map = new google.maps.Map(document.getElementById('GoogleMap'), {
+    var map = new google.maps.Map(document.getElementById("GoogleMap"), {
         center: agcs,
         zoom: 9,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -85,20 +85,20 @@
     var marker = new google.maps.Marker({
         position:agcs,
         map: map,
-        title: 'AGCS'
+        title: "AGCS"
     });
 
     var infowindow = new google.maps.InfoWindow({
-      content: `{% include 'parts/infowindow.html' %}`
+      content: `{% include "parts/infowindow.html" %}`
     });
 
-    google.maps.event.addListener(marker, 'click', function() {
+    google.maps.event.addListener(marker, "click", function() {
         infowindow.open(map, marker);
         map.setZoom(10);
         map.setCenter(marker.getPosition());
     });
 
-    google.maps.event.addListener(map,'center_changed',function() {
+    google.maps.event.addListener(map,"center_changed",function() {
         window.setTimeout(function() {
             map.panTo(marker.getPosition());
         }, 3000);

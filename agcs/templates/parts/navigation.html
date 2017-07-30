@@ -1,4 +1,3 @@
-<style>@import url({{ STATIC_URL }}css/nav.css);</style>
 <div class="container-fluid">
   <div class="navbar-header">
     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
@@ -53,8 +52,26 @@
         <a href="{% url 'forum:index' %}">Forum</a>
       </li>
       <li{% if 'docs/public' in request.path %} class="active"{% endif %}>
-        <a href="{% url 'public-docs' %}">Docs</a>
+        <a href="//docs.alphageek.xyz">Docs</a>
       </li>
+      {% if user.is_authenticated and 'user/' in request.path %}
+      <li>
+        <a class="btn loginout" href="{% url 'logout' %}">
+          <span class="fa-stack fa-lg">
+            <i class="fa fa-sign-out fa-stack fa-inverse" title="Logout"></i>
+          </span>
+        </a>
+      </li>
+      {% endif %}
+ {% comment %}
+     <li>
+        <a class="btn loginout" href="{% url 'user_blank' %}">
+          <span class="fa-stack fa-lg">
+            <i class="fa fa-user fa-stack fa-inverse" title="Dashboard"></i>
+          </span>
+        </a>
+      </li>
+{% endcomment %}
     </ul>
   </div>
 </div>

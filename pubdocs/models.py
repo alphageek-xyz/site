@@ -5,9 +5,8 @@ from django.contrib.auth.models import User
 
 
 def user_dir_path(instance, filename):
-    return 'docs/{0}/{1}'.format(instance.user.id,
-        os.path.basename(filename)
-    )
+    return 'docs/{0}'.format(os.path.basename(filename))
+
 
 class AbstractDocument(models.Model):
     user = models.ForeignKey(

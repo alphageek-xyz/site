@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.views.generic.edit import (
     CreateView, UpdateView, DeleteView,
     FormView
@@ -57,4 +58,3 @@ class DocumentUpdate(RestrictedDocumentMixin, UpdateView):
 
 class DocumentDelete(RestrictedDocumentMixin, DeleteView):
     model = Document
-

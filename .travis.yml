@@ -16,11 +16,13 @@ python:
   - "3.5"
 
 env:
-  - TRAVIS_CL_TEST=1
+  - TRAVIS_CL_TEST=1 DJANGO_SETTINGS_MODULE=tests.settings
 
 install:
   - make install
   - pip install coveralls
+  - mkdir agcs/templates/text
+  - touch agcs/templates/text/vpn.alphageek.xyz.ovpn
 
 before_script:
   - psql -c 'create database agcs_db;' -U postgres
