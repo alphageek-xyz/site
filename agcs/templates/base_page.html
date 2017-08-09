@@ -66,7 +66,6 @@
 {% block bootstrap3_extra_script %}
   {% block page_extra_script %}{% endblock %}
 
-{% if request.path != '/' %}
 <script>
   $(function() {
     $(document).scroll(function() {
@@ -103,52 +102,33 @@
     });
   });
 </script>
-{% endif %}
+
 <script>
   var carets = "fa-caret-down fa-caret-up";
-function modnav() {
   $(document).ready(function() {
-    $(".dropdown").on("show.bs.dropdown hide.bs.dropdown", function() {
-      $("i", this).toggleClass(carets);
-    });
-    if (Modernizr.hovermq && $(window).width() > 767) {
-      $(".dropdown").hover(function() {
-        $(this).toggleClass("open");
-        $("i", this).toggleClass(carets);
-      });
-      $(".dropdown-menu li").click(function() {
-        var href = $("a", this).attr("href");
-        var pat = new RegExp(window.location.pathname+"#[^/]+$", "g");
-        if (!href.match(pat) || !href.match(/#[^/]+/)) {
-          $(this).parent(".dropdown-menu").hide();
-          $(this).parents(".dropdown.open").trigger("hide.bs.dropdown");
-        }
-      });
-      $(window).resize(function() {
-        if ($(window).width() < 768)
-          $(".dropdown").off("hover");
-      });
-    }
+
+	$(".dropdown").on("show.bs.dropdown hide.bs.dropdown", function() {
+	  $("i", this).toggleClass(carets);
+	});
+
+	if (Modernizr.hovermq && $(window).width() > 767) {
+	  $(".dropdown").hover(function() {
+		$(this).toggleClass("open");
+		$("i", this).toggleClass(carets);
+	  });
+	  
+	  $(".dropdown-menu li").click(function() {
+		$(this).parent().parent('.dropdown').toggleClass("open");
+		$(this).parent(".dropdown-menu").hide();
+		$(this).parents(".dropdown.open").trigger("hide.bs.dropdown");
+	  });
+	  
+	  $(window).resize(function() {
+		if ($(window).width() < 768)
+		  $(".dropdown").off("hover");
+	  });
+	}
   });
-}
-
-{% if request.path == '/' %}
-  var nIntervId;
-
-  function do_modnav() {
-    if (!window.jQuery) {
-      console.log('still waiting for jquery...');
-      return null;
-    }
-    clearInterval(nIntervId);
-    console.log('jquery loaded. interval cleared!');
-    modnav();
-  }
-
-  nIntervId = setInterval(do_modnav, 1000);
-{% else %}
-  modnav();
-{% endif %}
-
 </script>
 {% endblock bootstrap3_extra_script %}
+

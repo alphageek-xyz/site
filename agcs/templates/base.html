@@ -25,11 +25,7 @@
   {% block bootstrap3_content %}{% endblock %}
 </body>
 </html>
-{% if request.path != '/' %}
 <script src="{% static 'js/vendor/jquery.min.js' %}"></script>
 <script src="{% static 'js/vendor/bootstrap.min.js' %}" defer></script>
 <script src="{% static 'js/modernizr.min.js' %}"></script>
-{% else %}
-<script async src="{% static 'js/vendor/jq+bs+mo.min.js' %}"></script>
-{% endif %}
 {% block bootstrap3_extra_script %}{% endblock %}
