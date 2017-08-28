@@ -140,20 +140,20 @@
     );
   };
 
-	$(document).ready(function() {
-		$('#navbar > ul.nav > li').hover(
-			function() {
-				if (noNavColorChange(this)) return;
-				$(this).css('background-color','#15a589');
+  $(document).ready(function() {
+    $('#navbar > ul.nav > li').hover(
+      function() {
+        if (noNavColorChange(this)) return;
+        $(this).css('background-color','#15a589');
         $('a', this).css('color', 'white');
-			},
-			function() {
-				if (noNavColorChange(this)) return;
-				$(this).removeAttr('style');
+      },
+      function() {
+        if (noNavColorChange(this)) return;
+        $(this).removeAttr('style');
         $('a', this).removeAttr('style');
-			}
-		);
-	});
+      }
+    );
+  });
 </script>
 
 {% endblock bootstrap3_extra_script %}
