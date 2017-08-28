@@ -70,3 +70,4 @@ agcs/static/img/favicon/
 *.ovpn
 *fixtures/*
 agcs/fixtures/all.json
+gedtest
