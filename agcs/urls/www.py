@@ -100,6 +100,13 @@ urlpatterns = [
         name='services'
     ),
 
+    url(r'^shop/$',
+        LandingPageView.as_view(
+            template_name='pages/shop.html'
+        ),
+        name='shop'
+    ),
+
     url(r'^robots\.txt$',
         TemplateView.as_view(
             content_type='text/plain',

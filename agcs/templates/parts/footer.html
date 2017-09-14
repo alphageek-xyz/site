@@ -1,24 +1,23 @@
 {% load landing_utils %}
-{# <style>{% inline_static_file 'css/footer.min.css' 'css' %}</style> #}
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-4 social-buttons text-center">
-      <a class="btn" href="{{ links.facebook }}" target="_blank">
-        {% include "landing/fa/stack.html" with type="facebook" tip="Like us on Facebook" %}
+      <a id="gmaps_blink" class="btn" href="{{ links.google_maps }}" target="_blank">
+        {% include "landing/fa/stack.html" with type="location-arrow" tip="Get Directions" %}
       </a>
-      <a class="btn" href="{{ links.google_plus }}" target="_blank">
+      <a id="gplus_blink" class="btn" href="{{ links.google_plus }}" target="_blank">
         {% include "landing/fa/stack.html" with type="google-plus" tip=site.schema.name|add:" on Google Plus" %}
       </a>
-      <a class="btn" href="{{ links.yelp }}" target="_blank">
+        <a id="fbook_blink" class="btn" href="{{ links.facebook }}" target="_blank">
+        {% include "landing/fa/stack.html" with type="facebook" tip="Like us on Facebook" %}
+      </a>
+      <a id="ghub_blink" class="btn" href="{{ links.github }}" target="_blank">
+        {% include "landing/fa/stack.html" with type="github-alt" tip="Public repositories on GitHub" %}
+      </a>
+      <a id="yelp_blink" class="btn" href="{{ links.yelp }}" target="_blank">
         {% include "landing/fa/stack.html" with type="yelp" tip="Yelp! Read reviews or write a new one" %}
       </a>
-      <a class="btn" href="{{ links.github }}" target="_blank">
-        {% include "landing/fa/stack.html" with type="github" tip="Public repositories on GitHub" %}
-      </a>
-      <a class="btn" href="{{ links.google_maps }}" target="_blank">
-        {% include "landing/fa/stack.html" with type="map-marker" tip="Get Directions" %}
-      </a>
-      <a class="btn" href="mailto:{{ site.schema.email }}" target="_blank">
+      <a id="email_blink" class="btn" href="mailto:{{ site.schema.email }}" target="_blank">
         {% include "landing/fa/stack.html" with type="envelope" tip="Email Us" %}
       </a>
     </div>

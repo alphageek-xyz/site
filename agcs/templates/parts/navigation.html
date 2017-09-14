@@ -14,7 +14,7 @@
     <ul class="nav navbar-nav navbar-right">
       <li class="dropdown{% if 'services' in request.path %} active{% endif %}">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Services
-            <i class="fa fa-caret-down" aria-hidden="true"></i>
+            <i class="fa fa-caret-down carets" aria-hidden="true"></i>
         </a>
         <ul class="dropdown-menu">
           <li>
@@ -30,7 +30,7 @@
       </li>
       <li class="dropdown{% if 'about' in request.path %} active{% endif %}">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">About
-            <i class="fa fa-caret-down" aria-hidden="true"></i>
+            <i class="fa fa-caret-down carets" aria-hidden="true"></i>
         </a>
         <ul class="dropdown-menu">
           <li>
@@ -42,6 +42,11 @@
           </li>
           <li class="service-item">
             <a id="terms-dd-link" class="service-link" href="{% url 'terms' %}">Terms &amp; Conditions</a>
+          </li>
+          <li class="service-item">
+            <a id="checkout-link" class="service-link" href="https://zohosecurepay.com/checkout/qvs6iog-magkv69213d9u/Alpha-Geeks--Make-a-Payment">Make a Payment
+              <i class="fa fa-credit-card"></i>
+            </a>
           </li>
         </ul>
       </li>

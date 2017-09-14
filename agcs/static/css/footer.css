@@ -1,34 +1,36 @@
+/* footer.css */
+
 footer hr {
   width: 0;
   margin: 10px 0;
 }
 
 div.social-buttons {
-    padding-top: 5px;
+  padding-top: 5px;
 }
 
 .social-buttons a.btn {
-    padding: 10px 0px;
+  padding: 10px 0;
 }
 
 .social-buttons a.btn:hover,
 .social-buttons a.btn:focus,
 .social-buttons a.btn.focus {
-    color: #44596f;
+  color: #44596f;
 }
 
 .social-buttons a.company-number {
-    padding: 10px 5px;
+  padding: 10px 5px;
 }
 
 #company-address {
   margin: 0 0 .5em 0;
-  color: white;
+  color: #fff;
 }
 
 #copyright {
-    padding: 5px 0 2.5px 0;
-    margin-top: 10.5px;
+  padding: 5px 0 2.5px 0;
+  margin-top: 10.5px;
 }
 
 #webhost {
@@ -61,4 +63,21 @@ div.social-buttons {
     content: '.';
     color: #3498db;
   }
+}
+
+#gmaps_blink {
+  color: #3498db;
+}
+
+#fbook_blink {
+  color: #3b5998;
+}
+
+#gplus_blink,
+#yelp_blink {
+  color: #dd4e42;
+}
+
+#ghub_blink {
+  color: #24292e;
 }

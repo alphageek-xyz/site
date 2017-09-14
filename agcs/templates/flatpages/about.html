@@ -1,4 +1,35 @@
 {% extends 'base_page.html' %}
 {% block page_title %}{{ flatpage.title }}{% endblock page_title %}
-{% block content %}{{ flatpage.content }}{% endblock content %}
+
+{% block page_extra_head %}
+<style>
+.emblem {
+  margin: 0 auto 0;
+  width: 50%;
+}
+.kinda-well {
+  background-color: inherit;
+}
+#usmc {
+  float: left;
+}  
+</style>
+{% endblock page_extra_head %}
+
+{% block content %}{{ flatpage.content }}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+      <div class="well well-lg kinda-well">
+				<a href="https://en.wikipedia.org/wiki/3rd_Battalion,_1st_Marines" target="_blank">
+					<img id="usmc" class="img-responsive emblem" src="/s/img/usmc.png" alt="BLT31">
+        </a>
+				<a href="https://en.wikipedia.org/wiki/3rd_Battalion,_1st_Marines" target="_blank">
+					<img id="blt31" class="img-responsive emblem" src="/s/img/blt31.png" alt="BLT31">
+				</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
 
