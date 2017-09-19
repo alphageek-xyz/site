@@ -1,7 +1,7 @@
 {% extends "base_page.html" %}{% load bootstrap3 staticfiles recaptcha2 cache %}
 {% block page_title %}Contact Us{% endblock page_title %}
 {% block page_extra_head %}{% recaptcha_init %}
-<style>#GoogleMap {height: 480px;border: 2em solid white;}</style>
+<style>#GoogleMap {height: 480px;border: 1em solid white;}</style>
 {% endblock page_extra_head %}
 {% block content %}
 <div class="container">
@@ -28,7 +28,12 @@
         {% buttons submit="Submit" reset="Cancel" %}{% endbuttons %}
       </form>
     </div>
-    <div class="col-md-6 col-md-offset-1" id="GoogleMap"></div>
+    <div class="col-md-6 col-md-offset-1">
+      <div id="GoogleMap"></div>
+      <p class="text-center"><sup>&#8224;</sup>
+        <small>On-site service available in highlighted area</small>
+      </p>
+    </div>
   </div>
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
@@ -72,36 +77,48 @@
 </script>
 <script>
   function initMap() {
-    var agcs = new google.maps.LatLng(33.3520803, -96.5776504);
+    var agcs = new google.maps.LatLng(33.352085, -96.575432);
 
     var map = new google.maps.Map(document.getElementById("GoogleMap"), {
-        center: agcs,
-        zoom: 9,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        mapTypeControl:false,
-        streetViewControl:false
+      center: agcs,
+      zoom: 9,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      mapTypeControl:false,
+      streetViewControl:false,
+      fullscreenControl: false
     });
 
     var marker = new google.maps.Marker({
-        position:agcs,
-        map: map,
-        title: "AGCS"
+      position:agcs,
+      map: map,
+      title: "AGCS"
     });
 
     var infowindow = new google.maps.InfoWindow({
       content: `{% include "parts/infowindow.html" %}`
     });
 
+    var mycircle = new google.maps.Circle({
+      strokeColor: "#FF0000",
+      strokeOpacity: 0.6,
+      strokeWeight: 1,
+      fillColor: "#FF0000",
+      fillOpacity: 0.1,
+      map: map,
+      center: agcs,
+      radius: 40233.6
+    });
+
     google.maps.event.addListener(marker, "click", function() {
-        infowindow.open(map, marker);
-        map.setZoom(10);
-        map.setCenter(marker.getPosition());
+      infowindow.open(map, marker);
+      map.setZoom(9);
+      map.setCenter(marker.getPosition());
     });
 
     google.maps.event.addListener(map,"center_changed",function() {
-        window.setTimeout(function() {
-            map.panTo(marker.getPosition());
-        }, 3000);
+      window.setTimeout(function() {
+        map.panTo(marker.getPosition());
+      }, 3000);
     });
 
     infowindow.open(map, marker);
