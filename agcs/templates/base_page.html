@@ -21,10 +21,10 @@
 <meta name="google-site-verification" content="obUUNOlNII3lM4L7fM8r_teEVmgRiJcRHksdyQoBW1Q" />
 <meta name="msvalidate.01" content="4A9ECC2E495C85CC9CC904F51D67E03A">
 <link rel="manifest" href="{% url 'chrome_manifest' %}">
-<link rel="canonical" href="{% block canonical %}{{ site.schema.url }}{{ request.path }}{% endblock canonical %}" itemprop="url">
+<link rel="canonical" href="{% block canonical %}{{ site.schema.url }}{{ request.path }}{% endblock %}" itemprop="url">
 {% get_favicons extra.favicon_prefix %}
 <link rel="stylesheet" href="{% static 'css/base.min.css' %}">
-{% block page_extra_head %}{% endblock page_extra_head %}
+{% block page_extra_head %}{% endblock %}
 {% endblock bootstrap3_extra_head %}
 
 {% block bootstrap3_content %}
@@ -39,7 +39,7 @@
 {% block base_header %}
   <div class="row">
     <div class="col-lg-12 text-center">
-      <h2>{% block page_title %}{{ request.resolver_match.url_name|title }}{% endblock page_title %}</h2>
+      <h2>{% block page_title %}{{ request.resolver_match.url_name|title }}{% endblock %}</h2>
       <hr class="star-primary">
     </div>
   </div>
