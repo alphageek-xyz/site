@@ -35,8 +35,8 @@
     {% endcache %}
     <div class="col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-1">
       {% for service in service_list %}
-        <hr id="{{ service.anchor_id }}" class="service-tag">
-        <div class="service-div">
+        <hr class="service-tag">
+        <div id="{{ service.anchor_id }}" class="service-div">
           <div class="page-header">
             <h2 class="text-center text-primary"><strong>{{ service.name }}</strong></h2>
           </div>

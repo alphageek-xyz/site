@@ -114,7 +114,12 @@
     {# if (Modernizr.hovermq && $(window).width() > 767) { #}
     if ( $(window).width() > 767 ) {
       $(".dropdown").hover(function() {
-        $(this).toggleClass("open");
+        $(this).addClass("open");
+        $('.dropdown-menu', this).show();
+        $("i.carets", this).toggleClass(carets);
+      }, function() {
+        $(this).removeClass('open');
+        $('.dropdown-menu', this).hide();
         $("i.carets", this).toggleClass(carets);
       });
 
