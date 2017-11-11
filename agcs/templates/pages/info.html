@@ -1,0 +1,30 @@
+{% extends "base_page.html" %}{% load cache landing_utils %}
+{% block bootstrap3_title %}Info{% endblock %}
+{% block page_extra_head %}
+<style>{% inline_static_file 'css/services.min.css' 'css' %}</style>
+{% endblock %}
+{# {% block base_header %}{% endblock %} #}
+{% block content %}
+<div class="container">
+  <div class="col-sm-8 col-sm-offset-2">
+    {% for annou in announcements %}
+    <hr class="service-tag">
+    <div id="{{ annou.anchor_id }}" class="service-div">
+      <div class="page-header">
+        <h2 class="text-center text-primary"><strong>{{ annou.title }}</strong></h2>
+      </div>
+    <div class="bs-component service well well-lg">
+      {{ annou.html|safe }}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}
+
+{% block page_extra_script %}
+<script>
+  $(document).ready(function() {
+    $("header:first-of-type").remove();
+  });
+</script>
+{% endblock %}

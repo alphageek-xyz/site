@@ -114,20 +114,27 @@ INSTALLED_APPS = [
     'myip.apps.MyIPConfig',
     'treenav',
     'pubdocs.apps.PubdocsConfig',
+    'tagging',
+    'blog.apps.BlogConfig',
 ] + get_machina_apps([
     'community.apps.forum_conversation',
     'community.apps.forum_member',
 ])
 
+CACHE_MIDDLEWARE_KEY_PREFIX='mainsite'
+CACHE_MIDDLEWARE_SECONDS=120
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_hosts.middleware.HostsRequestMiddleware',
-    'django.middleware.http.ConditionalGetMiddleware',
+    'django.middleware.cache.UpdateCacheMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
+#    'django.middleware.http.ConditionalGetMiddleware',
 #   'headers.middleware.VaryAcceptEncodingMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
+#   'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',

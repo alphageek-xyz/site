@@ -25,7 +25,7 @@ from landing.forms import MyAuthenticationForm, MyPasswordResetForm
 from metadata.core.context_processors import login_kwargs
 from landing.views import ovpnfile
 from metadata.models import Website
-
+from blog.models import Announcement
 
 def fp_lastmod(request, url):
     return datetime.datetime.fromtimestamp(
@@ -47,13 +47,25 @@ sitemaps = {
 urlpatterns = [
 
     url(r'^$',
-        cache_page(60*5)(last_modified(fp_lastmod)(flatpage)),
+        #cache_page(60*5)(last_modified(fp_lastmod)(flatpage)),
+        #cache_page(60)(flatpage),
+        cache_page(30)(flatpage),
         kwargs={'url': '/'},
         name='home'
     ),
 
+    url(r'^info/$',
+        never_cache(TemplateView.as_view(
+            template_name='pages/info.html',
+            content_type='text/html',
+        )),
+        kwargs={'announcements':Announcement.objects.all()},
+        name='info',
+    ),
+
     url(r'^about/$',
         cache_page(60*5)(last_modified(fp_lastmod)(flatpage)),
+        #cache_page(60*5)(flatpage),
         kwargs={'url': '/about/'},
         name='about'
     ),

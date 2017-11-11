@@ -11,6 +11,7 @@ CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
         'LOCATION': SECRETS.get('memcached_host', '127.0.0.1:11211'),
+        'TIMEOUT':300,
     },
     'machina_attachments': {
         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',

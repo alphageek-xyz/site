@@ -26,8 +26,8 @@ def markup_markdown(md, allowed_tags=None):
             'MARKDOWN_EXTENSTIONS',
             _MARKDOWN_SETTINGS['extensions']
         ))), tags=allowed_tags or bleach.ALLOWED_TAGS + [
-            'h%d' % i for i in range(1, 4)
-        ] + ['p', 'div', 'pre']
+            'h%d' % i for i in range(1, 5)
+        ] + ['p', 'div', 'pre', 'small']
     )
     soup = BeautifulSoup(
         '<div class="service-markup">\n%s\n</div>' % html,
