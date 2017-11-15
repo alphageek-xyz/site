@@ -36,6 +36,10 @@ class Announcement(models.Model):
         auto_now=True,
     )
 
+    display_title = models.BooleanField(
+        default=True
+    )
+
     @cached_property
     def html(self):
         return markup_markdown(

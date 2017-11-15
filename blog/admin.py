@@ -5,7 +5,7 @@ from .models import Announcement
 
 @admin.register(Announcement)
 class AnnouncementAdmin(admin.ModelAdmin):
-    fields = ('order', 'title', 'content',)
+    fields = ('order', 'title', 'content', 'display_title',)
     list_display = ('title', 'order', 'modified',)
     ordering = ('order',)
     readonly_fields = ('order', 'modified',)

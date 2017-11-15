@@ -1,6 +1,20 @@
-{% extends "base_page.html" %}{% load cache landing_utils %}
+{% extends "base_page.html" %}{% load cache landing_utils blog_utils %}
 {% block bootstrap3_title %}Info{% endblock %}
 {% block page_extra_head %}
+
+<style>
+.emblems:first-of-type {
+  float: left;
+}
+
+.emblems {
+  width: 50%;
+}
+
+.emblem, .emblems {
+  margin: 0 auto 0;
+}
+</style>
 <style>{% inline_static_file 'css/services.min.css' 'css' %}</style>
 {% endblock %}
 {# {% block base_header %}{% endblock %} #}
@@ -10,9 +24,11 @@
     {% for annou in announcements %}
     <hr class="service-tag">
     <div id="{{ annou.anchor_id }}" class="service-div">
+      {% if annou.display_title %}
       <div class="page-header">
         <h2 class="text-center text-primary"><strong>{{ annou.title }}</strong></h2>
       </div>
+      {% endif %}
     <div class="bs-component service well well-lg">
       {{ annou.html|safe }}
     </div>
