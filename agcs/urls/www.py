@@ -25,7 +25,9 @@ from landing.forms import MyAuthenticationForm, MyPasswordResetForm
 from metadata.core.context_processors import login_kwargs
 from landing.views import ovpnfile
 from metadata.models import Website
-from blog.models import Announcement
+from blog.models import Announcement, Link
+from tagging.views import TaggedObjectList
+from tagging.models import TaggedItem
 
 def fp_lastmod(request, url):
     return datetime.datetime.fromtimestamp(
@@ -54,13 +56,21 @@ urlpatterns = [
         name='home'
     ),
 
-    url(r'^info/$',
+    url(r'^info/announcements/$',
         never_cache(TemplateView.as_view(
             template_name='pages/info.html',
             content_type='text/html',
         )),
         kwargs={'announcements':Announcement.objects.all()},
         name='info',
+    ),
+
+    url(r'^info/links/$',
+        never_cache(TemplateView.as_view(
+            template_name='pages/links.html',
+            content_type='text/html',
+        )),
+        name='links',
     ),
 
     url(r'^about/$',
@@ -117,6 +127,12 @@ urlpatterns = [
             template_name='pages/shop.html'
         ),
         name='shop'
+    ),
+
+    url(r'^info/calendar/month/$',
+        flatpage,
+        kwargs={'url': '/info/calendar/month/'},
+        name='monthcal',
     ),
 
     url(r'^robots\.txt$',

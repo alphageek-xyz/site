@@ -199,6 +199,14 @@ def autofocus_field(field, *args, **kwargs):
 
 @register.filter
 @stringfilter
+def mkanchorid(value):
+    return mark_safe(re.sub(
+        " ?[&/\\@ ]+ ?", '_',
+        value)[:30]
+    )
+
+@register.filter
+@stringfilter
 def minify_js(value):
     return mark_safe(js_minify(value))
 

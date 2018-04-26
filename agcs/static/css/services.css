@@ -35,3 +35,11 @@ a.list-group-item.last-clicked {
     color: #ffffff;
     font-weight: bolder;
 }
+
+#BuyDiaRep {
+    text-align: center;
+}
+
+#BuyDiaRep input[type=image] {
+    border: none;
+}

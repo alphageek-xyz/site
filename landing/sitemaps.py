@@ -6,7 +6,7 @@ class LandingSitemap(sitemaps.Sitemap):
     changefreq = 'daily'
 
     def items(self):
-        return ['services', 'contact', 'info']
+        return ['services', 'contact', 'info', 'links']
 
     def location(self, item):
         return reverse(item)

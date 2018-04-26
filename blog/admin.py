@@ -1,6 +1,19 @@
 from django.contrib import admin
 from django.db.models import F, Max
-from .models import Announcement
+from .models import Announcement, Link, Category
+
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    fields = ('name',)
+
+
+@admin.register(Link)
+class LinkAdmin(admin.ModelAdmin):
+    fields = ('order', 'name', 'tags', 'href',)
+    list_display = ('name', 'tags', 'modified', 'order','id',)
+    ordering = ('name',)
+    readonly_fields = ('order', 'modified',)
 
 
 @admin.register(Announcement)

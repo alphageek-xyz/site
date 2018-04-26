@@ -32,9 +32,6 @@ hr.paydivider {
 #PayPalPay {
   text-align: left;
   margin-left: 1em;
-}
-
-#PayPalPay input[type=image] {
   border: none;
 }
 
