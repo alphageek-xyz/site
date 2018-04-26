@@ -45,22 +45,41 @@ class ContactForm(forms.ModelForm):
                             for f in self._meta.fields),
         })]
 
+        email_context = {
+            'name'    : str(self.instance.name),
+            'phone'   : self.cleaned_data['phone'],
+            'email'   : self.cleaned_data['email'],
+            'comment' : self.cleaned_data['comment'],
+        }
+
         emails[0].attach_alternative(
             render_to_string('contact/email.html',
-                context={
-                    'name'    : str(self.instance.name),
-                    'phone'   : self.cleaned_data['phone'],
-                    'email'   : self.cleaned_data['email'],
-                    'comment' : self.cleaned_data['comment'],
-                },
+                context=email_context,
                 request=request
             ), 'text/html'
         )
 
         if self.cleaned_data['cc_myself']:
-            emails.append(copy.copy(emails[0]))
+            emails.append(copy.deepcopy(emails[0]))
             emails[1].to = emails[0].reply_to
             emails[1].reply_to = [settings.DEFAULT_REPLY_ADDR]
+            emails[1].subject = 'Alpha Geeks - {}'.format(
+                emails[0].subject
+            )
+            email_context.update({'heading' :
+                "Here's the information you sent us."
+            })
+            emails[1].body = '{}\n\n{}'.format(
+                email_context['heading'],
+                emails[0].body
+            )
+            emails[1].alternatives = []
+            emails[1].attach_alternative(
+                render_to_string('contact/email.html',
+                    context=email_context,
+                    request=request
+                ), 'text/html'
+            )
 
         try:
             with get_connection() as con:
