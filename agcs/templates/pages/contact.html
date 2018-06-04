@@ -1,7 +1,19 @@
 {% extends "base_page.html" %}{% load bootstrap3 staticfiles recaptcha2 cache %}
 {% block page_title %}Contact Us{% endblock page_title %}
 {% block page_extra_head %}{% recaptcha_init %}
-<style>#GoogleMap {height: 480px;border: 1em solid white;}</style>
+<style>
+@media(max-width: 321px) {
+  #contact_form > div:nth-child(8) > div {
+    padding-left: 1px;
+    padding-right: 1px;
+  }
+}
+
+#GoogleMap {
+  height: 480px;
+  border: .25em solid #212020;
+}
+</style>
 {% endblock page_extra_head %}
 {% block content %}
 <div class="container">

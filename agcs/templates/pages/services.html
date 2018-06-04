@@ -1,5 +1,30 @@
 {% extends "base_page.html" %}{% load cache landing_utils %}
 {% block page_extra_head %}
+<style>
+.panel-primary>.panel-heading {
+  color: #ffffff;
+  background-color: #2c3e50;
+  border-color: #2c3e50;
+  padding-bottom: 0;
+}
+
+.panel-primary {
+  border-color: #2c3e50;
+}
+
+#sidebar > div.panel.panel-primary {
+  background-color: #2b3d4e;
+}
+
+#sidebar > div > div.list-group.table-of-contents.panel-body > a,
+#sidebar > div > div.list-group.table-of-contents.panel-body {
+  background-color: #212020;
+}
+
+#sidebar > div > div.list-group.table-of-contents.panel-body {
+  padding-top: 12px;
+}
+</style>
 <style>{% inline_static_file 'css/services.min.css' 'css' %}</style>
 {% endblock %}
 

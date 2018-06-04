@@ -30,7 +30,9 @@ class ContactForm(forms.ModelForm):
     captcha = ReCaptchaField(
         widget=ReCaptchaWidget(
             callback='enableSubmit',
-            expired_callback='disableSubmit'
+            expired_callback='disableSubmit',
+            theme='dark',
+            size='normal'
         )
     )
 

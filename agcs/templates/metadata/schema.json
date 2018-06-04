@@ -16,7 +16,12 @@
   "email": "{{ site.schema.email }}",
   "telephone": "{{ site.schema.telephone }}",
   "logo": "{{ site.schema.logo }}",
-  "sameAs": [{% for l in site.schema.links.all %}
+  "image":"https://www.alphageek.xyz/s/img/logo.png",
+  "priceRange":"$60-$150",
+  "sameAs": [
+    "https://maps.google.com/maps?cid=15461394046540050269&hl=en-US&_ga=2.165838838.995741355.1528072292-74033318.1528072292",
+    "https://www.google.com/search?ludocid=15461394046540050269&hl=en-US&q=Alpha%20Geek%20Computer%20Services%202114%20Helmoken%20Falls%20Drive%20Anna%2C%20Texas%2075409-5121&_ga=2.165838838.995741355.1528072292-74033318.1528072292#fpstate=lie",
+    {% for l in site.schema.links.all %}
     "{{ l.url }}"{% if not forloop.last %},{% endif %}{% endfor %}
   ]
 }

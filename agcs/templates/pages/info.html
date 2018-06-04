@@ -1,7 +1,7 @@
 {% extends "base_page.html" %}{% load cache landing_utils blog_utils %}
-{% block bootstrap3_title %}Info{% endblock %}
-{% block page_extra_head %}
+{% block page_title %}Announcements{% endblock %}
 
+{% block page_extra_head %}
 <style>
 .emblems:first-of-type {
   float: left;
@@ -39,8 +39,8 @@
 
 {% block page_extra_script %}
 <script>
-  $(document).ready(function() {
-    $("header:first-of-type").remove();
-  });
+//  $(document).ready(function() {
+//    $("header:first-of-type").remove();
+//  });
 </script>
 {% endblock %}
